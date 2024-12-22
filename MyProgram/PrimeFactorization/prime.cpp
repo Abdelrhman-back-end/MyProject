@@ -33,19 +33,33 @@
 #define MP make_pair
 #define endl "\n"
 using namespace std;
-
-int main()
+const int sz = 1e6 + 10;
+bool composite[sz];
+void Sive_of_Eratosthenes()
 {
-    ll size;
-    cin >> size;
-    vector<ll> v(size);
-    for (auto &vv : v)
+    composite[0] = composite[1] = 1;
+    for (int i = 2; i * i <= sz; i++)
     {
-        cin >> vv;
-        if (vv % 2 == 0)
+        if (!composite[i])
         {
-            cout << vv << " ";
+            for (int j = i * i; j <= sz; j += i)
+            {
+                composite[j] = 1;
+            }
         }
     }
+}
+int main()
+{
+    Sive_of_Eratosthenes();
+    for (int i = 0; i <= 120; i++)
+    {
+        if (!composite[i])
+        {
+            cout << i << " " << endl;
+        }
+    }
+
     return 0;
 }
+
